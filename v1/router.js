@@ -21,7 +21,8 @@ module.exports = {
      * @param next
      * @param testcallback, used for tests only
      */
-    router: function(request, response, next, testcallback) {
+    router: function(request, response, next) {
+		var testcallback = null;
 
         // validate the game, it's set up so you can optionally
         // pass your public key in through the url which is easier
@@ -38,7 +39,7 @@ module.exports = {
         }
 
         var config = games.load(publickey);
-		
+
         if(!config) {
             if(testcallback) {
                 testcallback(false);
@@ -46,7 +47,7 @@ module.exports = {
 
             return output.terminate(payload, response, 1, "Invalid game (router.js:52)");
         }
-		
+
         if(!request.body.data) {
 
             if(testcallback) {
@@ -66,7 +67,7 @@ module.exports = {
 
             return output.terminate(payload, response, 1, "Invalid posted data (router.js:72)");
         }
-		
+
         var payload;
 
         try {
@@ -83,7 +84,7 @@ module.exports = {
         payload.ip = request.ip;
         payload.url = "https://" + request.headers.host + request.url;
 		payload.publickey = request.query.publickey;
-		
+
 		if(urlparams.query.debug) {
             payload.debug = urlparams.query.debug;
 		}
