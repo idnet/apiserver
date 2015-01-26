@@ -76,7 +76,7 @@ var achievementMap = {
 	publickey: String,
 	achievement: String,
 	achievementkey: String,
-	lastupdated: { type: Number, default: datetime.now }
+	lastupdated: { type: Number, default: null }
 };
 
 var achievementPlayerMap = {
